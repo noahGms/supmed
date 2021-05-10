@@ -29,6 +29,17 @@ class Person extends Authenticatable
         'admin' => 'admin'
     ];
 
+
+    public function scopeAreDoctors($query)
+    {
+        return $query->whereHas('doctor');
+    }
+
+    public function scopeArePatients($query)
+    {
+        return $query->whereHas('patient');
+    }
+
     public function setPasswordAttribute($password)
     {
         return $this->attributes['password'] = Hash::make($password);
@@ -37,5 +48,10 @@ class Person extends Authenticatable
     public function doctor()
     {
         return $this->hasOne(Doctor::class, 'person_id');
+    }
+
+    public function patient()
+    {
+        return $this->hasOne(Patient::class, 'person_id');
     }
 }

@@ -11,6 +11,8 @@ class Patient extends Model
 
     public $timestamps = false;
 
+    protected $primaryKey = 'person_id';
+
     protected $fillable = [
         'person_id'
     ];

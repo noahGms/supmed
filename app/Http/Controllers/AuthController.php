@@ -17,18 +17,7 @@ class AuthController extends Controller
      * @param RegisterRequest $request
      * @return JsonResponse
      */
-    public function registerAsDoctor(RegisterRequest $request): JsonResponse
-    {
-        $person = Person::create(array_merge($request->validated(), ['role' => Person::ROLES['doctor']]));
-        Doctor::create(['person_id' => $person->id]);
-        return response()->json(['message' => 'created']);
-    }
-
-    /**
-     * @param RegisterRequest $request
-     * @return JsonResponse
-     */
-    public function registerAsPatient(RegisterRequest $request): JsonResponse
+    public function register(RegisterRequest $request): JsonResponse
     {
         $person = Person::create(array_merge($request->validated(), ['role' => Person::ROLES['patient']]));
         Patient::create(['person_id' => $person->id]);

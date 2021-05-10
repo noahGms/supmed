@@ -11,10 +11,12 @@ class Doctor extends Model
 
     public $timestamps = false;
 
+    protected $primaryKey = 'person_id';
+
     protected $fillable = [
         'person_id'
     ];
-    
+
     protected $casts = [
         'person_id' => 'int'
     ];
