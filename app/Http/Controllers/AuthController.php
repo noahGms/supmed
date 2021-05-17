@@ -26,15 +26,15 @@ class AuthController extends Controller
 
     /**
      * @param LoginRequest $request
-     * @return JsonResponse
+     * @return PersonResource|JsonResponse
      */
-    public function login(LoginRequest $request): JsonResponse
+    public function login(LoginRequest $request)
     {
         if (!Auth::attempt($request->validated())) {
             return response()->json(['message' => 'bad credentials'], 403);
         }
 
-        return response()->json(['access_token' => Auth::user()->createToken('API Token')->plainTextToken]);
+        return PersonResource::make(Auth::user())->additional(['token_bearer' => Auth::user()->createToken('API Token')->plainTextToken]);
     }
 
     /**
