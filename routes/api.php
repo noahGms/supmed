@@ -33,4 +33,5 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['middleware' => ['auth:sanctum', 'admin']], function () {
     Route::apiResource('doctors', \App\Http\Controllers\DoctorController::class);
     Route::apiResource('patients', \App\Http\Controllers\PatientController::class);
+    Route::apiResource('admins', \App\Http\Controllers\AdminController::class);
 });

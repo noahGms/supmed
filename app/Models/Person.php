@@ -40,6 +40,11 @@ class Person extends Authenticatable
         return $query->whereHas('patient');
     }
 
+    public function scopeAreAdmins($query)
+    {
+        return $query->where('role', 'admin');
+    }
+
     public function setPasswordAttribute($password)
     {
         return $this->attributes['password'] = Hash::make($password);
