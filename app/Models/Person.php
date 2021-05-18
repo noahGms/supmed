@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 class Person extends Authenticatable
@@ -33,6 +34,7 @@ class Person extends Authenticatable
     public function scopeAreDoctors($query)
     {
         return $query->whereHas('doctor');
+        //return $query->where('role', 'doctor');
     }
 
     public function scopeArePatients($query)
@@ -48,6 +50,12 @@ class Person extends Authenticatable
     public function setPasswordAttribute($password)
     {
         return $this->attributes['password'] = Hash::make($password);
+    }
+
+    public function getFullNameAttribute()
+    {
+        $lastname = $this->lastname ? ' '. $this->lastname : '';
+        return ucfirst($this->firstname) . Str::upper($lastname);
     }
 
     public function doctor()
