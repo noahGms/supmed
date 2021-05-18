@@ -29,6 +29,10 @@ Route::group(['prefix' => 'auth'], function () {
     });
 });
 
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::apiResource('/doctors/{doctor}/workstimes', \App\Http\Controllers\WorkstimeController::class);
+});
+
 Route::group(['middleware' => ['auth:sanctum', 'admin']], function () {
     Route::apiResource('doctors', \App\Http\Controllers\DoctorController::class);
     Route::apiResource('patients', \App\Http\Controllers\PatientController::class);

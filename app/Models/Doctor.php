@@ -20,8 +20,6 @@ class Doctor extends Model
         'person_id'
     ];
 
-    protected $guarded = ['address'];
-
     protected $casts = [
         'person_id' => 'int'
     ];
@@ -29,5 +27,10 @@ class Doctor extends Model
     public function person()
     {
         return $this->belongsTo(Person::class, 'person_id');
+    }
+
+    public function workstimes()
+    {
+        return $this->hasMany(Workstime::class, 'doctor_id');
     }
 }
