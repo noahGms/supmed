@@ -34,6 +34,9 @@ class DoctorRequest extends FormRequest
             $data = [];
         }
 
-        return array_merge($data, Person::$rules);
+        return array_merge($data, array_merge(Person::$rules, [
+            'specialities' => 'sometimes|required',
+            'specialities.*' => 'int|exists:specialities,id'
+        ]));
     }
 }

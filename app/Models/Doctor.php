@@ -16,6 +16,8 @@ class Doctor extends Model
 
     protected $primaryKey = 'person_id';
 
+    public $incrementing = false;
+
     protected $fillable = [
         'person_id'
     ];
@@ -32,5 +34,10 @@ class Doctor extends Model
     public function workstimes()
     {
         return $this->hasMany(Workstime::class, 'doctor_id');
+    }
+
+    public function specialities()
+    {
+        return $this->belongsToMany(Doctor::class, 'speciality_doctor', 'doctor_id', 'speciality_id', 'person_id', 'person_id');
     }
 }

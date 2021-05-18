@@ -9,6 +9,7 @@ use App\Models\Doctor;
 use App\Models\Person;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use PhpParser\Comment\Doc;
 
 class DoctorController extends Controller
 {
@@ -31,10 +32,14 @@ class DoctorController extends Controller
     public function store(DoctorRequest $request): JsonResponse
     {
         $person = Person::create($requestValidated = array_merge($request->validated(), ['role' => Person::ROLES['doctor']]));
-        Doctor::create(['person_id' => $person->id]);
         $address = Address::create($requestValidated['address'] ?? []);
         $person->address_id = $address->id;
         $person->save();
+        $doctor = Doctor::create(['person_id' => $person->id]);
+
+        if (isset($requestValidated['specialities'])) {
+            $doctor->specialities()->attach($requestValidated['specialities']);
+        }
         return response()->json(['message' => 'created']);
     }
 
@@ -62,6 +67,9 @@ class DoctorController extends Controller
         $person->update($requestValidated = $request->validated());
         if (isset($requestValidated['address'])) {
             $person->address()->update($requestValidated['address']);
+        }
+        if (isset($requestValidated['specialities'])) {
+            $doctor->specialities()->sync($requestValidated['specialities']);
         }
         return \response()->json(['message' => 'updated']);
     }
