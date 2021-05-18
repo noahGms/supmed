@@ -9,7 +9,10 @@ class Doctor extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    public function usesTimestamps(): bool
+    {
+        return false;
+    }
 
     protected $primaryKey = 'person_id';
 

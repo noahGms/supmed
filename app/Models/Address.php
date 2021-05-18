@@ -9,7 +9,10 @@ class Address extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    public function usesTimestamps(): bool
+    {
+        return false;
+    }
 
     protected $fillable = [
         'street_number',
