@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\PersonResource;
-use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Person;
 use Illuminate\Http\JsonResponse;
@@ -42,7 +41,7 @@ class AuthController extends Controller
      */
     public function logout(): JsonResponse
     {
-        Auth::user()->tokens()->delete();
+        Auth::user()->currentAccessToken()->delete();
         return response()->json(['message' => 'logout']);
     }
 
