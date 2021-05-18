@@ -5,25 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\PersonRequest;
 use App\Http\Resources\PersonResource;
-use App\Models\Patient;
-use App\Models\Person;
 use Illuminate\Http\JsonResponse;
-use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    /**
-     * @param RegisterRequest $request
-     * @return JsonResponse
-     */
-    public function register(RegisterRequest $request): JsonResponse
-    {
-        $person = Person::create(array_merge($request->validated(), ['role' => Person::ROLES['patient']]));
-        Patient::create(['person_id' => $person->id]);
-        return response()->json(['message' => 'created']);
-    }
-
     /**
      * @param LoginRequest $request
      * @return PersonResource|JsonResponse

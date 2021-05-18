@@ -17,6 +17,8 @@ class Doctor extends Model
         'person_id'
     ];
 
+    protected $guarded = ['address'];
+
     protected $casts = [
         'person_id' => 'int'
     ];

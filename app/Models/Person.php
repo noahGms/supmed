@@ -21,7 +21,22 @@ class Person extends Authenticatable
         'firstname',
         'lastname',
         'phone',
-        'role'
+        'role',
+    ];
+
+    protected $casts = [
+        'address_id' => 'int'
+    ];
+
+    public static $rules = [
+        'firstname' => 'nullable|string',
+        'lastname' => 'nullable|string',
+        'phone' => 'nullable|string',
+
+        'address.street_number' => 'nullable|max:45',
+        'address.street_name' => 'nullable|max:45',
+        'address.zipcode' => 'nullable|max:45',
+        'address.city' => 'nullable|max:45',
     ];
 
     public const ROLES = [
@@ -30,11 +45,9 @@ class Person extends Authenticatable
         'admin' => 'admin'
     ];
 
-
     public function scopeAreDoctors($query)
     {
         return $query->whereHas('doctor');
-        //return $query->where('role', 'doctor');
     }
 
     public function scopeArePatients($query)
@@ -66,5 +79,10 @@ class Person extends Authenticatable
     public function patient()
     {
         return $this->hasOne(Patient::class, 'person_id');
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class, 'address_id');
     }
 }

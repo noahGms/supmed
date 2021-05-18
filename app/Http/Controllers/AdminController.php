@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminRequest;
 use App\Http\Resources\PersonResource;
+use App\Models\Address;
 use App\Models\Person;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -28,7 +29,10 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request): JsonResponse
     {
-        Person::create(array_merge($request->validated(), ['role' => Person::ROLES['admin']]));
+        $person = Person::create(array_merge($requestValidated = $request->validated(), ['role' => Person::ROLES['admin']]));
+        $address = Address::create($requestValidated['address'] ?? []);
+        $person->address_id = $address->id;
+        $person->save();
         return response()->json(['message' => 'created']);
     }
 
@@ -52,7 +56,10 @@ class AdminController extends Controller
      */
     public function update(AdminRequest $request, Person $admin): JsonResponse
     {
-        $admin->update($request->validated());
+        $admin->update($requestValidated = $request->validated());
+        if (isset($requestValidated['address'])) {
+            $admin->address()->update($requestValidated['address']);
+        }
         return response()->json(['message' => 'updated']);
     }
 
@@ -64,6 +71,7 @@ class AdminController extends Controller
      */
     public function destroy(Person $admin): JsonResponse
     {
+        $admin->address()->delete();
         $admin->delete();
         return response()->json(['message' => 'deleted']);
     }

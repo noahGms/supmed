@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Person;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
@@ -33,10 +34,6 @@ class AdminRequest extends FormRequest
             $data = [];
         }
 
-        return array_merge($data, [
-            'firstname' => 'nullable|string',
-            'lastname' => 'nullable|string',
-            'phone' => 'nullable|string',
-        ]);
+        return array_merge($data, Person::$rules);
     }
 }

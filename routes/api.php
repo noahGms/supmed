@@ -19,9 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('/register', [App\Http\Controllers\AuthController::class, 'register'])->name('register');
-    Route::post('/register/doctors', [App\Http\Controllers\AuthController::class, 'registerAsDoctor'])->name('registerAsDoctor');
-    Route::post('/register/patients', [App\Http\Controllers\AuthController::class, 'registerAsPatient'])->name('registerAsPatient');
+    Route::post('/register', [App\Http\Controllers\PatientController::class, 'store'])->name('register');
     Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
 
     Route::group(['middleware' => 'auth:sanctum'], function () {

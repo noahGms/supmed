@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PatientRequest;
 use App\Http\Resources\PersonResource;
+use App\Models\Address;
 use App\Models\Patient;
 use App\Models\Person;
 use Illuminate\Http\JsonResponse;
@@ -29,8 +30,11 @@ class PatientController extends Controller
      */
     public function store(PatientRequest $request): JsonResponse
     {
-        $person = Person::create(array_merge($request->validated(), ['role' => Person::ROLES['patient']]));
+        $person = Person::create(array_merge($requestValidated = $request->validated(), ['role' => Person::ROLES['patient']]));
         Patient::create(['person_id' => $person->id]);
+        $address = Address::create($requestValidated['address'] ?? []);
+        $person->address_id = $address->id;
+        $person->save();
         return response()->json(['message' => 'created']);
     }
 
@@ -54,7 +58,11 @@ class PatientController extends Controller
      */
     public function update(PatientRequest $request, Patient $patient): JsonResponse
     {
-        $patient->person()->update($request->validated());
+        $person = $patient->person;
+        $person->update($requestValidated = $request->validated());
+        if (isset($requestValidated['address'])) {
+            $person->address()->update($requestValidated['address']);
+        }
         return response()->json(['message' => 'updated']);
     }
 
@@ -66,6 +74,7 @@ class PatientController extends Controller
      */
     public function destroy(Patient $patient): JsonResponse
     {
+        $patient->person->address()->delete();
         $patient->person()->delete();
         return response()->json(['message' => 'deleted']);
     }

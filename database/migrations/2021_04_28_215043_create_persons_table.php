@@ -21,6 +21,8 @@ class CreatePersonsTable extends Migration
             $table->string('lastname')->nullable();
             $table->string('phone')->nullable();
             $table->string('role')->nullable();
+            $table->foreignId('address_id')->index('fk_persons_address_idx')->nullable();
+            $table->foreign('address_id', 'fk_persons_address')->references('id')->on('addresses')->onUpdate('no action')->onDelete('set null');
             $table->timestamps();
         });
     }
