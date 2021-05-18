@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Speciality extends Model
+class Keyword extends Model
 {
     use HasFactory;
 
@@ -14,13 +14,5 @@ class Speciality extends Model
         return false;
     }
 
-    protected $fillable = [
-        'name',
-        'description'
-    ];
-
-    public function keywords()
-    {
-        return $this->belongsToMany(Keyword::class);
-    }
+    protected $fillable = ['name'];
 }

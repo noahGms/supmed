@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SpecialityRequest;
 use App\Http\Resources\SpecialityResource;
+use App\Models\Keyword;
 use App\Models\Speciality;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Collection;
 
 class SpecialityController extends Controller
 {
@@ -28,7 +30,15 @@ class SpecialityController extends Controller
      */
     public function store(SpecialityRequest $request): JsonResponse
     {
-        Speciality::create($request->validated());
+        $speciality = Speciality::create($requestValidated = $request->validated());
+        if (isset($requestValidated['keywords'])) {
+            $keywords = new Collection();
+            foreach ($requestValidated['keywords'] as $keyword) {
+                $keywordEntity = Keyword::firstOrCreate(['name' => $keyword]);
+                $keywords->push($keywordEntity);
+            }
+            $speciality->keywords()->attach($keywords->pluck('id'));
+        }
         return response()->json(['message' => 'created']);
     }
 
@@ -52,7 +62,15 @@ class SpecialityController extends Controller
      */
     public function update(SpecialityRequest $request, Speciality $speciality): JsonResponse
     {
-        $speciality->update($request->validated());
+        $speciality->update($requestValidated = $request->validated());
+        if (isset($requestValidated['keywords'])) {
+            $keywords = new Collection();
+            foreach ($requestValidated['keywords'] as $keyword) {
+                $keywordEntity = Keyword::firstOrCreate(['name' => $keyword]);
+                $keywords->push($keywordEntity);
+            }
+            $speciality->keywords()->sync($keywords->pluck('id'));
+        }
         return response()->json(['message' => 'updated']);
     }
 
