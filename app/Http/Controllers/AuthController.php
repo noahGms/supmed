@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\PersonRequest;
 use App\Http\Resources\PersonResource;
 use App\Models\Patient;
 use App\Models\Person;
@@ -52,4 +53,15 @@ class AuthController extends Controller
     {
         return PersonResource::make(Auth::user());
     }
+
+    /**
+     * @param PersonRequest $request
+     * @return JsonResponse
+     */
+    public function update(PersonRequest $request): JsonResponse
+    {
+        Auth::user()->update($request->validated());
+        return response()->json(['message' => 'updated']);
+    }
+
 }

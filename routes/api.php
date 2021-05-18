@@ -27,6 +27,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
         Route::get('/whoami', [\App\Http\Controllers\AuthController::class, 'whoami'])->name('whoami');
+        Route::post('/whoami', [\App\Http\Controllers\AuthController::class, 'update'])->name('updateMyProfile');
     });
 });
 
