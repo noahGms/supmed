@@ -20,8 +20,8 @@ class Workstime extends Model
     ];
 
     protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
         'doctor_id' => 'int'
     ];
 

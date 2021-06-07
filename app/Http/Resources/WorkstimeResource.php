@@ -17,8 +17,9 @@ class WorkstimeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'start_date' => $this->start_date,
-            'end_date' => $this->end_date
+            'start' => optional($this->start_date)->format('Y-m-d H:i'),
+            'end' => optional($this->end_date)->format('Y-m-d H:i'),
+            'class' => 'sport'
         ];
     }
 }
