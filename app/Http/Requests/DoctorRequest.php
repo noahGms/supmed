@@ -35,8 +35,8 @@ class DoctorRequest extends FormRequest
         }
 
         return array_merge($data, array_merge(Person::$rules, [
-            'specialities' => 'sometimes|required',
-            'specialities.*' => 'int|exists:specialities,id'
+            'specialities' => 'nullable',
+            'specialities.*' => 'nullable|int|exists:specialities,id'
         ]));
     }
 }
