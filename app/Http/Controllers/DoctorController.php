@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DoctorRequest;
+use App\Http\Resources\DoctorResource;
 use App\Http\Resources\PersonResource;
 use App\Models\Address;
 use App\Models\Doctor;
 use App\Models\Person;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use PhpParser\Comment\Doc;
 
 class DoctorController extends Controller
 {
@@ -20,7 +20,7 @@ class DoctorController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        return PersonResource::collection(Person::areDoctors()->get());
+        return DoctorResource::collection(Person::areDoctors()->get());
     }
 
     /**
@@ -47,11 +47,11 @@ class DoctorController extends Controller
      * Display the specified resource.
      *
      * @param Doctor $doctor
-     * @return PersonResource
+     * @return DoctorResource
      */
-    public function show(Doctor $doctor): PersonResource
+    public function show(Doctor $doctor): DoctorResource
     {
-        return PersonResource::make($doctor->person);
+        return DoctorResource::make($doctor->person);
     }
 
     /**
