@@ -27,6 +27,11 @@ class PersonRequest extends FormRequest
             'firstname' => 'nullable|string',
             'lastname' => 'nullable|string',
             'phone' => 'nullable|string',
+
+            'address.street_number' => 'nullable|integer',
+            'address.street_name' => 'nullable|string',
+            'address.zipcode' => 'nullable|integer',
+            'address.city' => 'nullable|string'
         ];
     }
 }

@@ -14,6 +14,24 @@ class Address extends Model
         return false;
     }
 
+    public function getFullAddressAttribute()
+    {
+        $values = [
+            'street_number' => $this->street_number,
+            'street_name' => $this->street_name,
+            'zipcode' => $this->zip_code,
+            'city' => $this->city,
+        ];
+
+        $full_address = '';
+        foreach ($values as $value) {
+            if ($value !== null && is_string($value)) {
+                $full_address .= $value . ' ';
+            }
+        }
+        return $full_address;
+    }
+
     protected $fillable = [
         'street_number',
         'street_name',

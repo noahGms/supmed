@@ -46,7 +46,10 @@ class AuthController extends Controller
      */
     public function update(PersonRequest $request): JsonResponse
     {
-        Auth::user()->update($request->validated());
+        Auth::user()->update($requestValidated = $request->validated());
+        if (isset($requestValidated['address'])) {
+            Auth::user()->address()->update($requestValidated['address']);
+        }
         return response()->json(['message' => 'updated']);
     }
 

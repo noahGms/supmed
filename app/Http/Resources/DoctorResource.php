@@ -23,7 +23,8 @@ class DoctorResource extends JsonResource
             'lastname' => $this->lastname,
             'phone' => $this->phone,
             'role' => $this->role,
-            'specialities' => SpecialityResource::collection($this->doctor->specialities)
+            'specialities' => SpecialityResource::collection($this->doctor->specialities),
+            'address' => AddressResource::make($this->address)
         ];
     }
 }
