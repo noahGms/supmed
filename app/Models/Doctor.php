@@ -26,6 +26,7 @@ class Doctor extends Model
         'person_id' => 'int'
     ];
 
+    public const APPOINTMENT_TIME = 15;
     public function person()
     {
         return $this->belongsTo(Person::class, 'person_id');

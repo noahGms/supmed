@@ -30,6 +30,7 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/doctors/{doctor}/workstimes/{workstime}/availabilities', \App\Http\Controllers\AvailabilityController::class);
     Route::apiResource('/doctors/{doctor}/workstimes', \App\Http\Controllers\WorkstimeController::class);
 });
 

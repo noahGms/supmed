@@ -10,24 +10,17 @@ use Illuminate\Support\Collection;
 
 class AvailabilitiesService
 {
-    public static function getAvailabilities(Doctor $doctor)
+    public static function getAvailabilities(Doctor $doctor, Workstime $workstime): Collection
     {
-        $workstimes = $doctor->workstimes;
-        return $workstimes->mapToDictionary(function (Workstime $workstime) use ($doctor) {
-
-            $timeslots = self::generateTimeslots(Doctor::APPOINTMENT_TIME, $workstime->start_date, $workstime->end_date);
+        $timeslots = self::generateTimeslots(Doctor::APPOINTMENT_TIME, $workstime->start_date, $workstime->end_date);
+        return $timeslots->map(function (Timeslot $timeslot) use ($workstime, $doctor) {
             return [
-               $workstime->start_date->format('Y-m-d H:i') . " - " . $workstime->end_date->format('Y-m-d H:i') =>
-                   $timeslots->map(function (Timeslot $timeslot) use ($workstime, $doctor) {
-                       return [
-                           $timeslot->start_date->format('H:i') . " - " . $timeslot->end_date->format('H:i') =>
-                               $doctor->appointments()
-                                   ->where('start_date', $timeslot->start_date)
-                                   ->where('end_date', $timeslot->end_date)
-                                   ->count() > 0
-                       ];
-
-               })->toArray()
+                'start' =>$timeslot->start_date->format('H:i') ,
+                'end' =>$timeslot->end_date->format('H:i'),
+                'free' => !$doctor->appointments()
+                        ->where('start_date', $timeslot->start_date)
+                        ->where('end_date', $timeslot->end_date)
+                        ->count() > 0
             ];
         });
     }
