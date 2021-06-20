@@ -9,7 +9,7 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/4f3834f0ec.js" crossorigin="anonymous"></script>
-        <link href="{{ asset('css/app.css', true) }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
@@ -18,6 +18,6 @@
     </head>
     <body>
     <div id="app"></div>
-    <script src="{{asset('js/app.js', true)}}"></script>
+    <script src="{{asset('js/app.js')}}"></script>
     </body>
 </html>
