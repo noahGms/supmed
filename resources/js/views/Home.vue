@@ -4,7 +4,7 @@
       <p class="text-base py-2 lg:pb-6 text-gray-700">
         Welcome <span class="font-bold">{{ user.fullname }}</span>
       </p>
-      <router-link :to="{name: 'appointments'}" class="text-indigo-500 inline-flex">My appointments</router-link>
+      <router-link v-if="$store.getters.is_patient" :to="{name: 'appointments'}" class="text-indigo-500 inline-flex">My appointments</router-link>
     </div>
     <div>
       <div>
