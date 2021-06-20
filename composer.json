@@ -45,6 +45,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "scout-import": [
+            "@php artisan scout:import \"App\\Models\\Doctor\" --ansi"
         ]
     },
     "extra": {
