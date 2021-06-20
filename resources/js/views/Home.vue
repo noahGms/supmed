@@ -20,7 +20,7 @@
         </form>
       </div>
     </div>
-    <div class="flex flex-wrap -m-2 mt-4">
+    <div v-if="doctors.length" class="flex flex-wrap -m-2 mt-4">
       <div
         v-for="(doctor, idx) in doctors"
         :key="idx"
@@ -54,6 +54,9 @@
           </div>
         </div>
       </div> 
+    </div>
+    <div v-else class="bg-indigo-100 border-l-4 border-indigo-500 text-indigo-700 p-4 w-full">
+      <p class="font-bold">No doctors found</p>
     </div>
   </div>
 </template>
