@@ -1,7 +1,7 @@
 <template>
 	<div v-if="loading" class="container w-full flex flex-col flex-wrap mx-auto px-8">
     <div>
-      <p class="text-base py-2 lg:pb-6 text-gray-700">New appointment</p>
+      <p class="text-base py-2 lg:pb-6 text-gray-700">Take appointment</p>
     </div>
 		<form v-if="workstimes.length" class="flex justify-center align-items flex-col">
 			<div v-if="!selectedWorkstime" class="flex justify-center align-items flex-wrap -m-4">
