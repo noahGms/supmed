@@ -1,5 +1,5 @@
 <template>
-  <div class="container w-full flex justify-center flex-wrap mx-auto px-8">
+  <div v-if="user" class="container w-full flex justify-center flex-wrap mx-auto px-8">
     <div class="flex w-full flex-wrap justify-between items-center">
       <p class="text-base font-bold text-gray-700 py-2">Profile</p>
       <button @click="openProfileFormComponent" class="rounded mr-6 text-indigo-600">
