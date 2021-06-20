@@ -13,9 +13,9 @@ export const DoctorModule = {
     }
   },
   actions: {
-    getAllDoctors (context) {
+    getAllDoctors (context, search = "") {
       return new Promise((resolve, reject) => {
-        axios.get('/doctors')
+        axios.get('/doctors?search=' + search)
           .then(response => {
             context.commit('set_doctors', response.data.data)
             resolve(response)
@@ -61,6 +61,17 @@ export const DoctorModule = {
     updateOneDoctor (_, doctor) {
       return new Promise((resolve, reject) => {
         axios.put(`/doctors/${doctor.id}`, doctor)
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+    getAvailabilities (_, { docId, wsId }) {
+      return new Promise((resolve, reject) => {
+        axios.get(`/doctors/${docId}/workstimes/${wsId}/availabilities`)
           .then(response => {
             resolve(response)
           })

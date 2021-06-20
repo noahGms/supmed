@@ -10,7 +10,8 @@ export const AuthModule = {
     get_user: (state) => state.user,
     logged_in: (state) => !!state.token_bearer,
     is_admin: (state) => state.user?.role === 'admin',
-    is_doctor: (state) => state.user?.role === 'doctor'
+    is_doctor: (state) => state.user?.role === 'doctor',
+    is_patient: (state) => state.user?.role === 'patient'
   },
   mutations: {
     set_token (state, token) {

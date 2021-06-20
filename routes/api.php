@@ -30,16 +30,18 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::apiResource('doctors', \App\Http\Controllers\DoctorController::class)->only('index', 'show');
+    Route::apiResource('appointmentsTypes', \App\Http\Controllers\AppointmentsTypeController::class)->only('index', 'show');
     Route::get('/doctors/{doctor}/workstimes/{workstime}/availabilities', \App\Http\Controllers\AvailabilityController::class);
     Route::apiResource('/doctors/{doctor}/workstimes', \App\Http\Controllers\WorkstimeController::class);
+    Route::apiResource('appointments', \App\Http\Controllers\AppointmentController::class);
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'admin']], function () {
-    Route::apiResource('doctors', \App\Http\Controllers\DoctorController::class);
+    Route::apiResource('doctors', \App\Http\Controllers\DoctorController::class)->only('store', 'update', 'delete');
     Route::apiResource('patients', \App\Http\Controllers\PatientController::class);
     Route::apiResource('admins', \App\Http\Controllers\AdminController::class);
     Route::apiResource('specialities', \App\Http\Controllers\SpecialityController::class);
     Route::apiResource('keywords', \App\Http\Controllers\KeywordController::class);
-    Route::apiResource('appointmentsTypes', \App\Http\Controllers\AppointmentsTypeController::class);
-    Route::apiResource('appointments', \App\Http\Controllers\AppointmentController::class);
+    Route::apiResource('appointmentsTypes', \App\Http\Controllers\AppointmentsTypeController::class)->only('store', 'update', 'delete');
 });

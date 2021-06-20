@@ -16,15 +16,15 @@ class DoctorResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'email' => $this->email,
-            'fullname' => $this->fullname,
-            'firstname' => $this->firstname,
-            'lastname' => $this->lastname,
-            'phone' => $this->phone,
-            'role' => $this->role,
-            'specialities' => SpecialityResource::collection($this->doctor->specialities),
-            'address' => AddressResource::make($this->address)
+            'id' => $this->person_id,
+            'email' => $this->person->email,
+            'fullname' => $this->person->fullname,
+            'firstname' => $this->person->firstname,
+            'lastname' => $this->person->lastname,
+            'phone' => $this->person->phone,
+            'role' => $this->person->role,
+            'specialities' => SpecialityResource::collection(optional($this->specialities)),
+            'address' => AddressResource::make(optional($this->address))
         ];
     }
 }

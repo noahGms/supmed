@@ -18238,6 +18238,15 @@ var routes = [{
     requiresAuth: true,
     requiresDoctorRole: true
   }
+}, {
+  path: '/appointments/:id/new',
+  name: 'new_appointment',
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ "resources_js_views_appointments_NewAppointment_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../views/appointments/NewAppointment */ "./resources/js/views/appointments/NewAppointment.vue"));
+  },
+  meta: {
+    requiresAuth: true
+  }
 }];
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_1__.createRouter)({
   history: (0,vue_router__WEBPACK_IMPORTED_MODULE_1__.createWebHistory)(process.env.BASE_URL),
@@ -18304,7 +18313,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _modules_AuthModule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/AuthModule */ "./resources/js/store/modules/AuthModule.js");
 /* harmony import */ var _modules_DoctorModule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/DoctorModule */ "./resources/js/store/modules/DoctorModule.js");
 /* harmony import */ var _modules_PatientModule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/PatientModule */ "./resources/js/store/modules/PatientModule.js");
@@ -18313,6 +18322,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_KeywordModule__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/KeywordModule */ "./resources/js/store/modules/KeywordModule.js");
 /* harmony import */ var _modules_WorkstimeModule__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/WorkstimeModule */ "./resources/js/store/modules/WorkstimeModule.js");
 /* harmony import */ var _modules_AppointmentsTypeModule__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/AppointmentsTypeModule */ "./resources/js/store/modules/AppointmentsTypeModule.js");
+/* harmony import */ var _modules_AppointmentModule__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/AppointmentModule */ "./resources/js/store/modules/AppointmentModule.js");
 
 
 
@@ -18322,7 +18332,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_8__.createStore)({
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_9__.createStore)({
   modules: {
     AuthModule: _modules_AuthModule__WEBPACK_IMPORTED_MODULE_0__.AuthModule,
     DoctorModule: _modules_DoctorModule__WEBPACK_IMPORTED_MODULE_1__.DoctorModule,
@@ -18331,7 +18342,8 @@ __webpack_require__.r(__webpack_exports__);
     SpecialityModule: _modules_SpecialityModule__WEBPACK_IMPORTED_MODULE_4__.SpecialityModule,
     KeywordModule: _modules_KeywordModule__WEBPACK_IMPORTED_MODULE_5__.KeywordModule,
     WorkstimeModule: _modules_WorkstimeModule__WEBPACK_IMPORTED_MODULE_6__.WorkstimeModule,
-    AppointmentsTypeModule: _modules_AppointmentsTypeModule__WEBPACK_IMPORTED_MODULE_7__.AppointmentsTypeModule
+    AppointmentsTypeModule: _modules_AppointmentsTypeModule__WEBPACK_IMPORTED_MODULE_7__.AppointmentsTypeModule,
+    AppointmentModule: _modules_AppointmentModule__WEBPACK_IMPORTED_MODULE_8__.AppointmentModule
   }
 }));
 
@@ -18406,6 +18418,49 @@ var AdminModule = {
     deleteOneAdmin: function deleteOneAdmin(_, admin) {
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_0___default().delete("/admins/".concat(admin.id)).then(function (response) {
+          resolve(response);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/AppointmentModule.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/store/modules/AppointmentModule.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AppointmentModule": () => (/* binding */ AppointmentModule)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var AppointmentModule = {
+  state: {
+    appointments: []
+  },
+  getters: {
+    get_appointments: function get_appointments(state) {
+      return state.appointments;
+    }
+  },
+  mutations: {
+    set_appointments: function set_appointments(state, appointments) {
+      state.appointments = appointments;
+    }
+  },
+  actions: {
+    newAppointment: function newAppointment(_, appointment) {
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().post('/appointments', appointment).then(function (response) {
           resolve(response);
         })["catch"](function (error) {
           reject(error);
@@ -18535,6 +18590,11 @@ var AuthModule = {
       var _state$user2;
 
       return ((_state$user2 = state.user) === null || _state$user2 === void 0 ? void 0 : _state$user2.role) === 'doctor';
+    },
+    is_patient: function is_patient(state) {
+      var _state$user3;
+
+      return ((_state$user3 = state.user) === null || _state$user3 === void 0 ? void 0 : _state$user3.role) === 'patient';
     }
   },
   mutations: {
@@ -18638,8 +18698,9 @@ var DoctorModule = {
   },
   actions: {
     getAllDoctors: function getAllDoctors(context) {
+      var search = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default().get('/doctors').then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().get('/doctors?search=' + search).then(function (response) {
           context.commit('set_doctors', response.data.data);
           resolve(response);
         })["catch"](function (error) {
@@ -18677,6 +18738,17 @@ var DoctorModule = {
     updateOneDoctor: function updateOneDoctor(_, doctor) {
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_0___default().put("/doctors/".concat(doctor.id), doctor).then(function (response) {
+          resolve(response);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    getAvailabilities: function getAvailabilities(_, _ref) {
+      var docId = _ref.docId,
+          wsId = _ref.wsId;
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().get("/doctors/".concat(docId, "/workstimes/").concat(wsId, "/availabilities")).then(function (response) {
           resolve(response);
         })["catch"](function (error) {
           reject(error);
@@ -41774,7 +41846,7 @@ var index = {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_auth_Login_vue":1,"resources_js_views_auth_Register_vue":1,"resources_js_views_auth_Profile_vue":1,"resources_js_views_admin_Dashboard_vue":1,"resources_js_views_admin_doctor_Doctors_vue":1,"resources_js_views_admin_doctor_Doctor_vue":1,"resources_js_views_admin_patient_Patients_vue":1,"resources_js_views_admin_patient_Patient_vue":1,"resources_js_views_admin_admin_Admins_vue":1,"resources_js_views_admin_admin_Admin_vue":1,"resources_js_views_admin_Specialities_vue":1,"resources_js_views_admin_Keywords_vue":1,"resources_js_views_admin_AppointmentsTypes_vue":1,"resources_js_views_workstime_Workstimes_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_auth_Login_vue":1,"resources_js_views_auth_Register_vue":1,"resources_js_views_auth_Profile_vue":1,"resources_js_views_admin_Dashboard_vue":1,"resources_js_views_admin_doctor_Doctors_vue":1,"resources_js_views_admin_doctor_Doctor_vue":1,"resources_js_views_admin_patient_Patients_vue":1,"resources_js_views_admin_patient_Patient_vue":1,"resources_js_views_admin_admin_Admins_vue":1,"resources_js_views_admin_admin_Admin_vue":1,"resources_js_views_admin_Specialities_vue":1,"resources_js_views_admin_Keywords_vue":1,"resources_js_views_admin_AppointmentsTypes_vue":1,"resources_js_views_workstime_Workstimes_vue":1,"resources_js_views_appointments_NewAppointment_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

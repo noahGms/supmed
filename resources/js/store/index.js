@@ -7,6 +7,7 @@ import { SpecialityModule } from './modules/SpecialityModule'
 import { KeywordModule } from './modules/KeywordModule'
 import { WorkstimeModule } from './modules/WorkstimeModule'
 import { AppointmentsTypeModule } from './modules/AppointmentsTypeModule'
+import { AppointmentModule } from './modules/AppointmentModule'
 
 export default createStore({
   modules: {
@@ -17,6 +18,7 @@ export default createStore({
     SpecialityModule: SpecialityModule,
     KeywordModule: KeywordModule,
     WorkstimeModule: WorkstimeModule,
-    AppointmentsTypeModule: AppointmentsTypeModule
+    AppointmentsTypeModule: AppointmentsTypeModule,
+    AppointmentModule: AppointmentModule
   }
 })

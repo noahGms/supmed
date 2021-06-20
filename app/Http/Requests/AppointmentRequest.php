@@ -30,7 +30,7 @@ class AppointmentRequest extends FormRequest
                 'end_date' => 'required|date',
                 'patient_id' => 'required|exists:patients,person_id|int',
                 'doctor_id' => 'required|exists:doctors,person_id|int',
-                'type_id' => 'required|exists:appointments_types,id|int'
+                'type_id' => 'exists:appointments_types,id|int'
             ];
         } else {
             $data = [

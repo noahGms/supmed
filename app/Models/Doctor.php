@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Doctor extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     public function usesTimestamps(): bool
     {
@@ -27,6 +28,25 @@ class Doctor extends Model
     ];
 
     public const APPOINTMENT_TIME = 15;
+
+    public function toSearchableArray()
+    {
+        return [
+            'person_id' => $this->person_id,
+            'firstname' => $this->person->firstname,
+            'lastname' => $this->person->lastname,
+            'fulladdress' => $this->person->address->fulladdress,
+            'specialities' => $this->specialities->map(function ($speciality) {
+                return $speciality->name;
+            }),
+            'keywords' => $this->specialities->map(function ($speciality) {
+                return $speciality->keywords->map(function ($keyword) {
+                    return $keyword->name;
+                });
+            })
+        ];
+    }
+
     public function person()
     {
         return $this->belongsTo(Person::class, 'person_id');
