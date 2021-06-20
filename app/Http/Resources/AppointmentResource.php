@@ -19,8 +19,8 @@ class AppointmentResource extends JsonResource
             'id' => $this->id,
             'start_date' => optional($this->start_date)->format('Y-m-d H:i'),
             'end_date' => optional($this->end_date)->format('Y-m-d H:i'),
-            'patient' => PersonResource::make(optional($this->patient)->person),
-            'doctor' => DoctorResource::make(optional($this->doctor)->person),
+            'patient' => PersonResource::make(optional($this->patient->person)),
+            'doctor' => DoctorResource::make(optional($this->doctor)),
             'type' => AppointmentsTypeResource::make(optional($this->type))
         ];
     }

@@ -93,6 +93,12 @@ const routes = [
     meta: { requiresAuth: true, requiresDoctorRole: true }
   },
   {
+    path: '/appointments',
+    name: 'appointments',
+    component: () => import('../views/appointments/MyAppointments'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/appointments/:id/new',
     name: 'new_appointment',
     component: () => import('../views/appointments/NewAppointment'),

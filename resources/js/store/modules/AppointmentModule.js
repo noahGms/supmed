@@ -23,6 +23,28 @@ export const AppointmentModule = {
 					reject(error)
 				})
 			})
+		},
+		myAppointments(_) {
+			return new Promise((resolve, reject) => {
+				axios.get('/myappointments')
+				.then(response => {
+					resolve(response)
+				})
+				.catch(error => {
+					reject(error)
+				})
+			})
+		},
+		cancelAppointment(_, appointment) {
+			return new Promise((resolve, reject) => {
+				axios.delete('/appointments/' + appointment.id)
+				.then(response => {
+					resolve(response)
+				})
+				.catch(error => {
+					reject(error)
+				})
+			})
 		}
   }
 }

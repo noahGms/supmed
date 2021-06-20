@@ -7,6 +7,7 @@ use App\Http\Resources\AppointmentResource;
 use App\Models\Appointment;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
@@ -66,5 +67,13 @@ class AppointmentController extends Controller
     {
         $appointment->delete();
         return response()->json(['message' => 'deleted']);
+    }
+
+    /**
+     * @return AnonymousResourceCollection
+     */
+    public function myAppointments(): AnonymousResourceCollection
+    {
+        return AppointmentResource::collection(Appointment::all()->where('patient_id', Auth::id()));
     }
 }

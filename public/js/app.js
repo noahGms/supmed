@@ -18239,6 +18239,15 @@ var routes = [{
     requiresDoctorRole: true
   }
 }, {
+  path: '/appointments',
+  name: 'appointments',
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ "resources_js_views_appointments_MyAppointments_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../views/appointments/MyAppointments */ "./resources/js/views/appointments/MyAppointments.vue"));
+  },
+  meta: {
+    requiresAuth: true
+  }
+}, {
   path: '/appointments/:id/new',
   name: 'new_appointment',
   component: function component() {
@@ -18461,6 +18470,24 @@ var AppointmentModule = {
     newAppointment: function newAppointment(_, appointment) {
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_0___default().post('/appointments', appointment).then(function (response) {
+          resolve(response);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    myAppointments: function myAppointments(_) {
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().get('/myappointments').then(function (response) {
+          resolve(response);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    cancelAppointment: function cancelAppointment(_, appointment) {
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().delete('/appointments/' + appointment.id).then(function (response) {
           resolve(response);
         })["catch"](function (error) {
           reject(error);
@@ -41846,7 +41873,7 @@ var index = {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_auth_Login_vue":1,"resources_js_views_auth_Register_vue":1,"resources_js_views_auth_Profile_vue":1,"resources_js_views_admin_Dashboard_vue":1,"resources_js_views_admin_doctor_Doctors_vue":1,"resources_js_views_admin_doctor_Doctor_vue":1,"resources_js_views_admin_patient_Patients_vue":1,"resources_js_views_admin_patient_Patient_vue":1,"resources_js_views_admin_admin_Admins_vue":1,"resources_js_views_admin_admin_Admin_vue":1,"resources_js_views_admin_Specialities_vue":1,"resources_js_views_admin_Keywords_vue":1,"resources_js_views_admin_AppointmentsTypes_vue":1,"resources_js_views_workstime_Workstimes_vue":1,"resources_js_views_appointments_NewAppointment_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_auth_Login_vue":1,"resources_js_views_auth_Register_vue":1,"resources_js_views_auth_Profile_vue":1,"resources_js_views_admin_Dashboard_vue":1,"resources_js_views_admin_doctor_Doctors_vue":1,"resources_js_views_admin_doctor_Doctor_vue":1,"resources_js_views_admin_patient_Patients_vue":1,"resources_js_views_admin_patient_Patient_vue":1,"resources_js_views_admin_admin_Admins_vue":1,"resources_js_views_admin_admin_Admin_vue":1,"resources_js_views_admin_Specialities_vue":1,"resources_js_views_admin_Keywords_vue":1,"resources_js_views_admin_AppointmentsTypes_vue":1,"resources_js_views_workstime_Workstimes_vue":1,"resources_js_views_appointments_MyAppointments_vue":1,"resources_js_views_appointments_NewAppointment_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
