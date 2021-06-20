@@ -1,9 +1,10 @@
 <template>
   <div class="container w-full flex flex-col flex-wrap mx-auto px-8">
-    <div>
+    <div class="flex w-full justify-between align-items">
       <p class="text-base py-2 lg:pb-6 text-gray-700">
         Welcome <span class="font-bold">{{ user.fullname }}</span>
       </p>
+      <router-link :to="{name: 'appointments'}" class="text-indigo-500 inline-flex">My appointments</router-link>
     </div>
     <div>
       <div>
@@ -48,8 +49,7 @@
               >
             </div>
             <div class="flex justify-end py-2">
-              <router-link :to="{name: 'new_appointment', params: {id: doctor.id}}" v-if="$store.getters.is_patient" class="text-indigo-500 inline-flex mr-3">Take appointment</router-link>
-              <router-link :to="{name: 'new_appointment', params: {id: doctor.id}}"><i class="fas fa-external-link-alt"></i></router-link>
+              <router-link :to="{name: 'new_appointment', params: {id: doctor.id}}" v-if="$store.getters.is_patient" class="text-indigo-500 inline-flex">Take appointment</router-link>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       search: '',
-      loading: false
+      loading: false,
     }
   },
   computed: {
@@ -87,7 +87,7 @@ export default {
       this.$store.dispatch('getAllDoctors', this.search).then(_ => {
         this.loading = true
       })
-    }
+    },
   },
   created() {
     this.getDoctors()

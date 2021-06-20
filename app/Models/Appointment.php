@@ -11,6 +11,11 @@ class Appointment extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime'
+    ];
+
     public function patient()
     {
         return $this->belongsTo(Patient::class, 'patient_id', 'person_id');

@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/doctors/{doctor}/workstimes/{workstime}/availabilities', \App\Http\Controllers\AvailabilityController::class);
     Route::apiResource('/doctors/{doctor}/workstimes', \App\Http\Controllers\WorkstimeController::class);
     Route::apiResource('appointments', \App\Http\Controllers\AppointmentController::class);
+    Route::get('/myappointments', [\App\Http\Controllers\AppointmentController::class, 'myAppointments']);
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'admin']], function () {
