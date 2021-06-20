@@ -379,7 +379,7 @@ var _hoisted_1 = {
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", {
   "class": "text-base py-2 lg:pb-6 text-gray-700"
-}, "New appointment")], -1
+}, "Take appointment")], -1
 /* HOISTED */
 );
 

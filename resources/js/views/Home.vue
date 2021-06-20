@@ -20,7 +20,7 @@
         </form>
       </div>
     </div>
-    <div class="flex flex-wrap -m-2 mt-4">
+    <div v-if="doctors.length" class="flex flex-wrap -m-2 mt-4">
       <div
         v-for="(doctor, idx) in doctors"
         :key="idx"
@@ -29,11 +29,11 @@
         <div
           class="h-full flex items-center border-gray-200 border p-4 rounded-lg"
         >
-          <img
+          <!--<img
             alt="team"
             class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
             :src="`https://randomuser.me/api/portraits/med/men/${idx}.jpg`"
-          />
+          />-->
           <div class="flex-grow">
             <h2 class="text-gray-900 title-font font-medium">
               {{ doctor.fullname }}
@@ -54,6 +54,12 @@
           </div>
         </div>
       </div> 
+    </div>
+    <div
+      v-else
+      class="bg-indigo-100 border-l-4 border-indigo-500 text-indigo-700 p-4 w-full"
+    >
+      <p class="font-bold">No doctors found</p>
     </div>
   </div>
 </template>
