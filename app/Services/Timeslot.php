@@ -6,8 +6,8 @@ use Carbon\Carbon;
 
 class Timeslot
 {
-    public Carbon $start_date;
-    public Carbon $end_date;
+    public $start_date;
+    public $end_date;
 
     public function __construct()
     {
