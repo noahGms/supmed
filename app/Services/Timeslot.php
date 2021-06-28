@@ -6,6 +6,9 @@ use Carbon\Carbon;
 
 class Timeslot
 {
+    public Carbon $start_date;
+    public Carbon $end_date;
+
     /**
      * @return Carbon
      */
@@ -37,6 +40,4 @@ class Timeslot
     {
         $this->end_date = $end_date;
     }
-    public Carbon $start_date;
-    public Carbon $end_date;
 }
