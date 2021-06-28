@@ -9,6 +9,12 @@ class Timeslot
     public Carbon $start_date;
     public Carbon $end_date;
 
+    public function __construct()
+    {
+        $this->start_date = new Carbon();
+        $this->end_date = new Carbon();
+    }
+
     /**
      * @return Carbon
      */
