@@ -39,10 +39,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'admin']], function () {
-    Route::apiResource('doctors', \App\Http\Controllers\DoctorController::class)->only('store', 'update', 'delete');
+    Route::apiResource('doctors', \App\Http\Controllers\DoctorController::class)->only('store', 'update', 'destroy');
     Route::apiResource('patients', \App\Http\Controllers\PatientController::class);
     Route::apiResource('admins', \App\Http\Controllers\AdminController::class);
     Route::apiResource('specialities', \App\Http\Controllers\SpecialityController::class);
     Route::apiResource('keywords', \App\Http\Controllers\KeywordController::class);
-    Route::apiResource('appointmentsTypes', \App\Http\Controllers\AppointmentsTypeController::class)->only('store', 'update', 'delete');
+    Route::apiResource('appointmentsTypes', \App\Http\Controllers\AppointmentsTypeController::class)->only('store', 'update', 'destroy');
 });

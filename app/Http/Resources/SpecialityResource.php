@@ -19,7 +19,7 @@ class SpecialityResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'keywords' => KeywordResource::collection($this->keywords)
+            'keywords' => KeywordResource::collection(optional($this->keywords))
         ];
     }
 }

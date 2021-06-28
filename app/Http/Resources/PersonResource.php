@@ -23,7 +23,7 @@ class PersonResource extends JsonResource
             'lastname' => $this->lastname,
             'phone' => $this->phone,
             'role' => $this->role,
-            'address' => AddressResource::make($this->address)
+            'address' => AddressResource::make(optional($this->address))
         ];
     }
 }
