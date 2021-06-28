@@ -14,14 +14,17 @@ class AppointmentsTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('appointments_types')->insert([
-            'id' => 1,
-            'name' => 'Physique'
-        ],
-        [
-            'id' => 2,
-            'name' => 'Virtuelle'
-        ]
+        DB::table('appointments_types')->insert(
+            [
+                [
+                    'id' => 1,
+                    'name' => 'Physique'
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'Virtuelle'
+                ]
+            ]
         );
     }
 }
