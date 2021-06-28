@@ -34,7 +34,7 @@ class SpecialityRequest extends FormRequest
             ];
         }
         return array_merge($data, [
-            'description' => 'string|max:45',
+            'description' => 'string|max:255',
             'keywords' => 'sometimes|required|array',
             'keywords.*' => 'string|max:45'
         ]);
