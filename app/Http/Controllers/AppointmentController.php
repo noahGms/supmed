@@ -76,4 +76,12 @@ class AppointmentController extends Controller
     {
         return AppointmentResource::collection(Appointment::all()->where('patient_id', Auth::id()));
     }
+
+    /**
+     * @return AnonymousResourceCollection
+     */
+    public function docAppointments(): AnonymousResourceCollection
+    {
+        return AppointmentResource::collection(Appointment::all()->where('doctor_id', Auth::id()));
+    }
 }

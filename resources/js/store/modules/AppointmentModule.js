@@ -35,6 +35,17 @@ export const AppointmentModule = {
 				})
 			})
 		},
+        docAppointments(_) {
+		    return new Promise((resolve, reject) => {
+              axios.get('/docappointments')
+                  .then(response => {
+                      resolve(response)
+                  })
+                  .catch(error => {
+                      reject(error)
+                  })
+          })
+        },
 		cancelAppointment(_, appointment) {
 			return new Promise((resolve, reject) => {
 				axios.delete('/appointments/' + appointment.id)

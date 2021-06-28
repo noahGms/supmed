@@ -26,6 +26,13 @@
             class="p-2 lg:px-4 md:mx-2 rounded hover:bg-gray-200 transition-colors duration-300 "
             >Home</router-link
           >
+            <router-link
+                v-if="$store.getters.is_doctor"
+                :to="{ name: 'docappointments' }"
+                active-class="text-indigo-600"
+                class="p-2 lg:px-4 md:mx-2 rounded hover:bg-gray-200 transition-colors duration-300 "
+            >Appointments</router-link
+            >
           <router-link
             v-if="$store.getters.is_doctor"
             :to="{ name: 'workstimes' }"

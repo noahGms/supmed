@@ -17930,15 +17930,17 @@ var _hoisted_7 = {
 
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Home");
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Workstimes");
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Appointments");
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Admin");
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Workstimes");
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Profile");
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Admin");
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Logout ");
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Profile");
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Logout ");
+
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "fas fa-sign-out-alt"
 }, null, -1
 /* HOISTED */
@@ -17975,7 +17977,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), _ctx.$store.getters.is_doctor ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
     key: 0,
     to: {
-      name: 'workstimes'
+      name: 'docappointments'
     },
     "active-class": "text-indigo-600",
     "class": "p-2 lg:px-4 md:mx-2 rounded hover:bg-gray-200 transition-colors duration-300 "
@@ -17986,8 +17988,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.$store.getters.is_admin ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.$store.getters.is_doctor ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
     key: 1,
+    to: {
+      name: 'workstimes'
+    },
+    "active-class": "text-indigo-600",
+    "class": "p-2 lg:px-4 md:mx-2 rounded hover:bg-gray-200 transition-colors duration-300 "
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_10];
+    }),
+    _: 1
+    /* STABLE */
+
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.$store.getters.is_admin ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
+    key: 2,
     to: {
       name: 'admin'
     },
@@ -17995,7 +18011,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "p-2 lg:px-4 md:mx-2 rounded hover:bg-gray-200 transition-colors duration-300 "
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_10];
+      return [_hoisted_11];
     }),
     _: 1
     /* STABLE */
@@ -18008,7 +18024,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "p-2 lg:px-4 md:mx-2 rounded hover:bg-gray-200 transition-colors duration-300 "
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_11];
+      return [_hoisted_12];
     }),
     _: 1
     /* STABLE */
@@ -18018,7 +18034,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.logout && $options.logout.apply($options, arguments);
     }),
     "class": "p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-solid border-indigo-600 rounded hover:bg-indigo-600 hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1 cursor-pointer"
-  }, [_hoisted_12, _hoisted_13])])])])]);
+  }, [_hoisted_13, _hoisted_14])])])])]);
 }
 
 /***/ }),
@@ -18246,6 +18262,16 @@ var routes = [{
   },
   meta: {
     requiresAuth: true
+  }
+}, {
+  path: '/docappointments',
+  name: 'docappointments',
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ "resources_js_views_appointments_DoctorAppointments_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../views/appointments/DoctorAppointments */ "./resources/js/views/appointments/DoctorAppointments.vue"));
+  },
+  meta: {
+    requiresAuth: true,
+    requiresDoctorRole: true
   }
 }, {
   path: '/appointments/:id/new',
@@ -18479,6 +18505,15 @@ var AppointmentModule = {
     myAppointments: function myAppointments(_) {
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_0___default().get('/myappointments').then(function (response) {
+          resolve(response);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    docAppointments: function docAppointments(_) {
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().get('/docappointments').then(function (response) {
           resolve(response);
         })["catch"](function (error) {
           reject(error);
@@ -41873,7 +41908,7 @@ var index = {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_auth_Login_vue":1,"resources_js_views_auth_Register_vue":1,"resources_js_views_auth_Profile_vue":1,"resources_js_views_admin_Dashboard_vue":1,"resources_js_views_admin_doctor_Doctors_vue":1,"resources_js_views_admin_doctor_Doctor_vue":1,"resources_js_views_admin_patient_Patients_vue":1,"resources_js_views_admin_patient_Patient_vue":1,"resources_js_views_admin_admin_Admins_vue":1,"resources_js_views_admin_admin_Admin_vue":1,"resources_js_views_admin_Specialities_vue":1,"resources_js_views_admin_Keywords_vue":1,"resources_js_views_admin_AppointmentsTypes_vue":1,"resources_js_views_workstime_Workstimes_vue":1,"resources_js_views_appointments_MyAppointments_vue":1,"resources_js_views_appointments_NewAppointment_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_Home_vue":1,"resources_js_views_auth_Login_vue":1,"resources_js_views_auth_Register_vue":1,"resources_js_views_auth_Profile_vue":1,"resources_js_views_admin_Dashboard_vue":1,"resources_js_views_admin_doctor_Doctors_vue":1,"resources_js_views_admin_doctor_Doctor_vue":1,"resources_js_views_admin_patient_Patients_vue":1,"resources_js_views_admin_patient_Patient_vue":1,"resources_js_views_admin_admin_Admins_vue":1,"resources_js_views_admin_admin_Admin_vue":1,"resources_js_views_admin_Specialities_vue":1,"resources_js_views_admin_Keywords_vue":1,"resources_js_views_admin_AppointmentsTypes_vue":1,"resources_js_views_workstime_Workstimes_vue":1,"resources_js_views_appointments_MyAppointments_vue":1,"resources_js_views_appointments_DoctorAppointments_vue":1,"resources_js_views_appointments_NewAppointment_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
