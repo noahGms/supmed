@@ -24,7 +24,7 @@ class PersonSeeder extends Seeder
         ]);
 
         DB::table('persons')->insert([
-            'email' => 'root@example.com',
+            'email' => 'root@supmed.com',
             'password' => Hash::make('root'),
             'firstname' => 'root',
             'lastname' => 'root',
